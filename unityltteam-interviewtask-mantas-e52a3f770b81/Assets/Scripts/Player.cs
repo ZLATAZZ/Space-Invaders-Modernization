@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 using Object = UnityEngine.Object;
 
 public class Player : MonoBehaviour {
@@ -40,7 +41,21 @@ public class Player : MonoBehaviour {
         if (Input.GetMouseButton(0)) {
             _lastInput = Input.mousePosition;
         }
+        if (_hasInput)
+        {
+            Vector3 screenPosition = _lastInput;
+            screenPosition.z = 0; 
 
+            Vector3 pos = Camera.main.ScreenToWorldPoint(screenPosition);
+
+            const float playAreaMinX = -3f;
+            const float playAreaMinY = 0f;
+            const float playAreaMaxX = 3f;
+            const float playAreaMaxY = 5f;
+
+            _body.MovePosition(new Vector3(Mathf.Clamp(pos.x,playAreaMinX, playAreaMaxX), Mathf.Clamp(pos.y, playAreaMinY, playAreaMaxY), 0.0f));
+
+        }
 
         _fireTimer += Time.deltaTime;
         if (_fireTimer >= _fireInterval) {
@@ -68,14 +83,7 @@ public class Player : MonoBehaviour {
     }
 
     private void FixedUpdate() {
-        if (_hasInput) {
-            Vector2 pos = _lastInput;
-            const float playAreaMin = -3f;
-            const float playAreaMax = 3f;
-
-            var p = pos.x / Screen.width;
-            _body.MovePosition(new Vector3(Mathf.Lerp(playAreaMin, playAreaMax, p), 0.0f, 0.0f));
-        }
+        
     }
 
     public void AddPowerUp(PowerUp.PowerUpType type) {
