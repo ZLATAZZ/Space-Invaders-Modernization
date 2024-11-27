@@ -41,8 +41,9 @@ public class Player : MonoBehaviour {
 
         _fireTimer += Time.deltaTime;
         if (_fireTimer >= _fireInterval) {
-            GameObject bullet = ObjectPoolManager.Instance.GetPooledGameObject();
-            if(bullet!= null)
+            GameObject bullet = ObjectPoolManager.Instance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.Bullet);
+
+            if (bullet != null)
             {
                 bullet.transform.position = _projectileSpawnLocation.position;
                 bullet.SetActive(true);

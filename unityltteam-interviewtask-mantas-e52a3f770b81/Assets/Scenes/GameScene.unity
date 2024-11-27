@@ -904,9 +904,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21fd69bbbc989fe4b99121b33fa071c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 177452054660736933, guid: 4e9b0c775b3565f4cb2ec3ed48ebcfad,
-    type: 3}
-  amountOfObjectsToPool: 5
+  pools:
+  - objectPrefabs:
+    - {fileID: 4237334538316748030, guid: 4e9b0c775b3565f4cb2ec3ed48ebcfad, type: 3}
+    amountOfObjectsToPool: 10
+    typesOfPoolObjects: 0
+    pooledObjects: []
+  - objectPrefabs:
+    - {fileID: 4237334538316748030, guid: 1dd0ab6fc9ba1d746999bdd9187ab64b, type: 3}
+    amountOfObjectsToPool: 1
+    typesOfPoolObjects: 1
+    pooledObjects: []
 --- !u!1 &1148548954
 GameObject:
   m_ObjectHideFlags: 0

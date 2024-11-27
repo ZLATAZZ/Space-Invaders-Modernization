@@ -52,8 +52,6 @@ public class Projectile : MonoBehaviour {
 
         if (destroy) {
             gameObject.SetActive(false);
-            
-            //Destroy(gameObject);
         }
     }
 }
