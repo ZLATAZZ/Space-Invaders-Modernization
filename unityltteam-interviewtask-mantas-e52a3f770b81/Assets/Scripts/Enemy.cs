@@ -22,7 +22,6 @@ public class Enemy : MonoBehaviour {
     private float _fireTimer = 0.0f;
     
     private ObjectPoolManager _poolManagerInstance;
-
     private void Awake() {
         _body = GetComponent<Rigidbody>();
         canFire = Random.value < 0.4f;
@@ -53,6 +52,19 @@ public class Enemy : MonoBehaviour {
         p += Vector3.down * (_speed * Time.deltaTime);
         _body.MovePosition(p);
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        var player = other.GetComponent<Player>();
+        if (player != null)
+        {
+            player._playerHealth = 0;
+            player.Hit();
+        }
+        else if (other.gameObject.CompareTag("BottomBorder"))
+        {
+            gameObject.SetActive(false);
+        }
+    }
 
     public void Hit(int damage) {
         _health -= damage;
@@ -77,5 +89,6 @@ public class Enemy : MonoBehaviour {
             
         }
     }
+
 
 }

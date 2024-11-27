@@ -34,7 +34,6 @@ public class Projectile : MonoBehaviour {
         if (enemy != null) {
 
             enemy.Hit(_damage);
-            //FindObjectOfType<GameplayUi>(true).UpdateEnemyHealthBar(_damage);
             destroy = true;
         }
         else {

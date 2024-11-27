@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private Projectile _prefabProjectile;
     [SerializeField] private Transform _projectileSpawnLocation;
 
-    private int _playerHealth = 3;
+    [HideInInspector] public int _playerHealth = 3;
     
     private Rigidbody _body = null;
     
@@ -78,13 +78,11 @@ public class Player : MonoBehaviour {
             fx.transform.position = transform.position;
             Destroy(gameObject);
             OnDie?.Invoke();
+            Time.timeScale = 0;
             return;
         }
     }
 
-    private void FixedUpdate() {
-        
-    }
 
     public void AddPowerUp(PowerUp.PowerUpType type) {
 
