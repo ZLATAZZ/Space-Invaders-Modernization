@@ -7,7 +7,16 @@ public class Projectile : MonoBehaviour {
     [SerializeField] private float _speed = 0.0f;
     [SerializeField] private Vector3 _direction = Vector3.up;
     private int _damage = 1;
+    private TrailRenderer _trailRenderer;
 
+    private void Awake()
+    {
+        _trailRenderer = GetComponent<TrailRenderer>();
+    }
+    private void OnEnable()
+    {
+        _trailRenderer.Clear();//ensure that no trail effect is left after deactivating it
+    }
     public void Init(int damage) {
         _damage = damage;
     }
@@ -43,6 +52,7 @@ public class Projectile : MonoBehaviour {
 
         if (destroy) {
             gameObject.SetActive(false);
+            
             //Destroy(gameObject);
         }
     }
