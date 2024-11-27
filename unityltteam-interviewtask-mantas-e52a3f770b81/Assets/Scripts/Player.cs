@@ -31,7 +31,7 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
-
+        
         if (Input.GetMouseButtonDown(0)) _hasInput = true;
         if (Input.GetMouseButtonUp(0)) _hasInput = false;
         if (Input.GetMouseButton(0)) {
@@ -41,9 +41,15 @@ public class Player : MonoBehaviour {
 
         _fireTimer += Time.deltaTime;
         if (_fireTimer >= _fireInterval) {
-
-            var go = Instantiate(_prefabProjectile);
-            go.transform.position = _projectileSpawnLocation.position;
+            GameObject bullet = ObjectPoolManager.Instance.GetPooledGameObject();
+            if(bullet!= null)
+            {
+                bullet.transform.position = _projectileSpawnLocation.position;
+                bullet.SetActive(true);
+               
+            }
+            //var go = Instantiate(_prefabProjectile);
+            //go.transform.position = _projectileSpawnLocation.position;
             _fireTimer -= _fireInterval;
         }
     }

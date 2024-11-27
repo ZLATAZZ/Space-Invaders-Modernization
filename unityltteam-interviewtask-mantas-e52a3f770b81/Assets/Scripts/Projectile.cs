@@ -13,7 +13,6 @@ public class Projectile : MonoBehaviour {
     }
 
     void Update() {
-
         var p = transform.position;
         p += _direction * (_speed * Time.deltaTime);
         transform.position = p;
@@ -37,8 +36,14 @@ public class Projectile : MonoBehaviour {
             }
         }
 
+        if (other.gameObject.CompareTag("TopBorder"))
+        {
+            gameObject.SetActive(false);
+        }
+
         if (destroy) {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
     }
 }
