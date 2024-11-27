@@ -21,8 +21,11 @@ public class Player : MonoBehaviour {
     float _fireInterval = 0.4f;
     private float _fireTimer = 0.0f;
 
+    private ObjectPoolManager _poolManagerInstance;
+
     private void Awake() {
         _body = GetComponent<Rigidbody>();
+        _poolManagerInstance = ObjectPoolManager.Instance;
     }
 
     void Start() {
@@ -41,16 +44,9 @@ public class Player : MonoBehaviour {
 
         _fireTimer += Time.deltaTime;
         if (_fireTimer >= _fireInterval) {
-            GameObject bullet = ObjectPoolManager.Instance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.Bullet);
-
-            if (bullet != null)
-            {
-                bullet.transform.position = _projectileSpawnLocation.position;
-                bullet.SetActive(true);
-               
-            }
-            //var go = Instantiate(_prefabProjectile);
-            //go.transform.position = _projectileSpawnLocation.position;
+            GameObject bullet = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.BULLET);
+            _poolManagerInstance.ActivatePooledGameObject(bullet, _projectileSpawnLocation);
+            
             _fireTimer -= _fireInterval;
         }
     }

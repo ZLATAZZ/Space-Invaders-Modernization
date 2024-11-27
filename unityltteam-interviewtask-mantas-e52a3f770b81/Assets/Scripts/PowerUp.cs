@@ -26,10 +26,15 @@ public class PowerUp : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         
         var player = other.GetComponent<Player>();
-        if (player == null) return;
-
-        player.AddPowerUp(_type);
-        Destroy(gameObject);
+        if (player != null)
+        {
+            player.AddPowerUp(_type);
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
 
     }
 }

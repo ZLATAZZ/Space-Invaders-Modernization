@@ -10,9 +10,11 @@ public class GameController : MonoBehaviour {
     bool _running = true;
 
     private Player _player;
-    
+    private ObjectPoolManager _poolManagerInstance;
+
     void Awake() {
         Application.targetFrameRate = 60;
+        _poolManagerInstance = ObjectPoolManager.Instance;
     }
 
     void Start() {
@@ -26,15 +28,14 @@ public class GameController : MonoBehaviour {
         if (!_running) return;
         _enemySpawnTimer += Time.deltaTime;
         if ( _enemySpawnTimer >= _enemySpawnInterval ) {
-            var e = Instantiate(_prefabEnemy);
-
-            var p = _spawnPosition + new Vector3(
+            GameObject enemy = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.ENEMY);
+            Vector3 p = _spawnPosition + new Vector3(
                 Random.Range(-_spawnOffsets.x, _spawnOffsets.x),
                 Random.Range(-_spawnOffsets.y, _spawnOffsets.y),
-                0.0f
-            );
-            e.transform.position = p;
-
+                0.0f);
+            Transform enemyPosition = enemy.transform;
+            enemyPosition.position = p;
+            _poolManagerInstance.ActivatePooledGameObject(enemy, enemyPosition);
             _enemySpawnTimer -= _enemySpawnInterval;
         }
     }

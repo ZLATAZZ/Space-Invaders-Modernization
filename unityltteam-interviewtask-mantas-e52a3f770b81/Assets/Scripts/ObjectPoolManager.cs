@@ -4,25 +4,27 @@ using UnityEngine;
 using static ObjectPoolManager;
 using static Unity.Burst.Intrinsics.X86.Avx;
 
+[DefaultExecutionOrder(-1)]
 public class ObjectPoolManager : MonoBehaviour
 {
     [System.Serializable]
     public class PoolObject
     {
-        public GameObject[] objectPrefabs;
-        public int amountOfObjectsToPool;
-        public TypesOfPoolObjects typesOfPoolObjects;
-        [HideInInspector] public List<GameObject> pooledObjects;
+        public GameObject _objectPrefab;
+        public int _amountOfObjectsToPool;
+        public TypesOfPoolObjects _typesOfPoolObjects;
+        [HideInInspector] public List<GameObject> _pooledObjects;
     }
     public enum TypesOfPoolObjects
     {
-        Bullet,
-        Fire,
-        Enemy,
-        PowerUp,
+        BULLET,
+        FIRE,
+        ENEMY,
+        POWER_UP,
+        VFX
     }
-    public List<PoolObject> pools;
-    private GameObject tmp;
+    public List<PoolObject> _pools;
+    private GameObject _tmp;
     
     public static ObjectPoolManager Instance {  get; private set; }
 
@@ -38,27 +40,24 @@ public class ObjectPoolManager : MonoBehaviour
 
     private void CreateObjectsToPool()
     {
-        foreach(PoolObject pool in pools)
+        foreach(PoolObject pool in _pools)
         {
-            pool.pooledObjects = new List<GameObject>();
-            for(int i = 0; i < pool.amountOfObjectsToPool; i++)
+            pool._pooledObjects = new List<GameObject>();
+            for(int i = 0; i < pool._amountOfObjectsToPool; i++)
             {
-                for(int j = 0; j<pool.objectPrefabs.Length; j++)
-                {
-                    tmp = Instantiate(pool.objectPrefabs[j]);
-                    pool.pooledObjects.Add(tmp);
-                    tmp.SetActive(false);
-                }
+                _tmp = Instantiate(pool._objectPrefab);
+                pool._pooledObjects.Add(_tmp);
+                _tmp.SetActive(false);
             }
         }
     }
-    private GameObject ActivatePooledObject(int index)
+    private GameObject PooledObject(int index)
     {
-        for (int i = 0; i < pools[index].amountOfObjectsToPool; i++)
+        for (int i = 0; i < _pools[index]._amountOfObjectsToPool; i++)
         {
-            if (!pools[index].pooledObjects[i].activeInHierarchy)
+            if (!_pools[index]._pooledObjects[i].activeInHierarchy)
             {
-                return pools[index].pooledObjects[i];
+                return _pools[index]._pooledObjects[i];
             }
         }
         return null;
@@ -68,11 +67,24 @@ public class ObjectPoolManager : MonoBehaviour
     {
         switch (typesOfPool)
         {
-            case TypesOfPoolObjects.Bullet: return ActivatePooledObject((int)TypesOfPoolObjects.Bullet);
-            case TypesOfPoolObjects.Fire: return ActivatePooledObject((int)TypesOfPoolObjects.Fire);
-            case TypesOfPoolObjects.Enemy: return ActivatePooledObject((int)TypesOfPoolObjects.Enemy);
-            case TypesOfPoolObjects.PowerUp: return ActivatePooledObject((int)TypesOfPoolObjects.PowerUp);
+            case TypesOfPoolObjects.BULLET: return PooledObject((int)TypesOfPoolObjects.BULLET);
+            case TypesOfPoolObjects.FIRE: return PooledObject((int)TypesOfPoolObjects.FIRE);
+            case TypesOfPoolObjects.ENEMY: return PooledObject((int)TypesOfPoolObjects.ENEMY);
+            case TypesOfPoolObjects.POWER_UP: return PooledObject((int)TypesOfPoolObjects.POWER_UP);
+            case TypesOfPoolObjects.VFX: return PooledObject((int)TypesOfPoolObjects.VFX);
             default: return null;
+        }
+    }
+    /// <summary>
+    /// Activates a pooled GameObject by setting its position and making it active
+    /// </summary>
+    public void ActivatePooledGameObject(GameObject pooledObject, Transform pooledObjectPosition)
+    {
+        if (pooledObject != null)
+        {
+            pooledObject.transform.position = pooledObjectPosition.position;
+            pooledObject.SetActive(true);
+
         }
     }
 }

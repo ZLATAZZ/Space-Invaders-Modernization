@@ -6,7 +6,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour {
     [SerializeField] private float _speed = 0.0f;
     [SerializeField] private Vector3 _direction = Vector3.up;
-    private int _damage = 1;
+    private int _damage = 4;
     private TrailRenderer _trailRenderer;
 
     private void Awake()
@@ -45,7 +45,7 @@ public class Projectile : MonoBehaviour {
             }
         }
 
-        if (other.gameObject.CompareTag("TopBorder"))
+        if (other.gameObject.CompareTag("TopBorder") || other.gameObject.CompareTag("BottomBorder"))
         {
             gameObject.SetActive(false);
         }

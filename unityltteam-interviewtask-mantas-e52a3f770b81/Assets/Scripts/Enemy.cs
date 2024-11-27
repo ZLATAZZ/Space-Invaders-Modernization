@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour {
     [SerializeField] private GameObject _prefabExplosion;
     [SerializeField] private PowerUp _prefabPowerUp;
     [SerializeField] private Projectile _prefabProjectile;
+    [SerializeField] private Transform _firePosition;
 
     private float _powerUpSpawnChance = 0.1f;
     private int _health = 2;
@@ -19,11 +20,13 @@ public class Enemy : MonoBehaviour {
     private float _fireInterval = 2.5f;
     private float _fireTimer = 0.0f;
     
+    private ObjectPoolManager _poolManagerInstance;
 
     private void Awake() {
         _body = GetComponent<Rigidbody>();
         canFire = Random.value < 0.4f;
         _health = 2 + Mathf.Min(Mathf.FloorToInt(Time.time / 15f), 5);
+        _poolManagerInstance = ObjectPoolManager.Instance;
     }
 
     void Update() {
@@ -31,8 +34,8 @@ public class Enemy : MonoBehaviour {
         if (canFire) {
             _fireTimer += Time.deltaTime;
             if (_fireTimer >= _fireInterval) {
-                var go = Instantiate(_prefabProjectile);
-                go.transform.position = transform.position;
+                GameObject fire = ObjectPoolManager.Instance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.FIRE);
+                _poolManagerInstance.ActivatePooledGameObject(fire, _firePosition);
                 _fireTimer -= _fireInterval;
             }
         }
@@ -47,16 +50,20 @@ public class Enemy : MonoBehaviour {
     public void Hit(int damage) {
         _health -= damage;
         if (_health <= 0) {
-            var fx = Instantiate(_prefabExplosion);
-            fx.transform.position = transform.position;
+            GameObject fx = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.VFX);
+            _poolManagerInstance.ActivatePooledGameObject(fx, transform);
             
             if (Random.value < _powerUpSpawnChance) {
-                var powerup = Instantiate(_prefabPowerUp);
+                GameObject powerup = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.POWER_UP);
+
+                _poolManagerInstance.ActivatePooledGameObject(powerup, _firePosition);
+
                 var types = Enum.GetValues(typeof(PowerUp.PowerUpType)).Cast<PowerUp.PowerUpType>().ToList();
-                powerup.SetType(types[Random.Range(0,types.Count)]);
+                powerup.GetComponent<PowerUp>().SetType(types[Random.Range(0,types.Count)]);
+                gameObject.SetActive(false);
             }
+
             
-            Destroy(gameObject);
             Object.FindObjectOfType<GameplayUi>(true).AddScore(1);
 
         }
