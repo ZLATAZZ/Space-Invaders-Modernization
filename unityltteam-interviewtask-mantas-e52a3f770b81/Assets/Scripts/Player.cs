@@ -73,16 +73,23 @@ public class Player : MonoBehaviour {
         Object.FindObjectOfType<GameplayUi>(true).UpdateHealth(_playerHealth);
 
         if (_playerHealth <= 0) {
-            Object.FindObjectOfType<GameOverUi>(true).Open();
-            var fx = Instantiate(_prefabExplosion);
-            fx.transform.position = transform.position;
-            Destroy(gameObject);
-            OnDie?.Invoke();
-            Time.timeScale = 0;
-            return;
+            GameObject fx = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.EXPLOSION);
+            _poolManagerInstance.ActivatePooledGameObject(fx, transform);
+            gameObject.SetActive(false);
+            _poolManagerInstance.DeactivatePooledObjects();
+            Invoke("GameOver", .5f);//small delay to see the explosion
+            
         }
     }
-
+    private void GameOver()
+    {
+       
+        Object.FindObjectOfType<GameOverUi>(true).Open();
+        Destroy(gameObject);
+        OnDie?.Invoke();
+        Time.timeScale = 0;
+        return;
+    }
 
     public void AddPowerUp(PowerUp.PowerUpType type) {
 

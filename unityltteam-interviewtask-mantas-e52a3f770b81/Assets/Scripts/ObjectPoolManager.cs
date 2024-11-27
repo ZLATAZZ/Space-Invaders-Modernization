@@ -89,4 +89,21 @@ public class ObjectPoolManager : MonoBehaviour
 
         }
     }
+
+    /// <summary>
+    /// For game over: deactivate all objects, except Explosion
+    /// </summary>
+    public void DeactivatePooledObjects()
+    {
+        foreach (PoolObject pool in _pools)
+        {
+            foreach (GameObject pooledObject in pool._pooledObjects)
+            {
+                if(pool._typesOfPoolObjects != TypesOfPoolObjects.EXPLOSION)
+                {
+                    pooledObject.SetActive(false);
+                }
+            }
+        }
+    }
 }
