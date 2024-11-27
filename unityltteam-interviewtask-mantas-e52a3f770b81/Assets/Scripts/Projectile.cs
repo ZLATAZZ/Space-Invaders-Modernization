@@ -6,7 +6,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour {
     [SerializeField] private float _speed = 0.0f;
     [SerializeField] private Vector3 _direction = Vector3.up;
-    private int _damage = 4;
+    private int _damage = 1;
     private TrailRenderer _trailRenderer;
 
     private void Awake()
@@ -34,6 +34,7 @@ public class Projectile : MonoBehaviour {
         if (enemy != null) {
 
             enemy.Hit(_damage);
+            //FindObjectOfType<GameplayUi>(true).UpdateEnemyHealthBar(_damage);
             destroy = true;
         }
         else {

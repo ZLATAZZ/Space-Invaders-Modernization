@@ -922,13 +922,18 @@ MonoBehaviour:
     _pooledObjects: []
   - _objectPrefab: {fileID: 5739546006976547901, guid: 195424833b2e94e4caa204a418379bf2,
       type: 3}
-    _amountOfObjectsToPool: 10
+    _amountOfObjectsToPool: 3
     _typesOfPoolObjects: 3
     _pooledObjects: []
   - _objectPrefab: {fileID: 7302861985510318563, guid: b9fe2c8d722fc9841a6db269ef3f3d04,
       type: 3}
     _amountOfObjectsToPool: 10
     _typesOfPoolObjects: 4
+    _pooledObjects: []
+  - _objectPrefab: {fileID: 7986753564298726130, guid: dd33c180250d8df4fa9fce101885d2d3,
+      type: 3}
+    _amountOfObjectsToPool: 10
+    _typesOfPoolObjects: 5
     _pooledObjects: []
 --- !u!1 &1148548954
 GameObject:
@@ -1979,6 +1984,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 788558040825218158, guid: 854fb8ff7df935246836796a925acff7,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 330585545}
+    - target: {fileID: 1241328055777880686, guid: 854fb8ff7df935246836796a925acff7,
+        type: 3}
+      propertyPath: m_Value
+      value: 3.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 1241328055777880686, guid: 854fb8ff7df935246836796a925acff7,
+        type: 3}
+      propertyPath: m_MaxValue
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3599859123977255695, guid: 854fb8ff7df935246836796a925acff7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1987,7 +2007,7 @@ PrefabInstance:
     - target: {fileID: 3599859123977255695, guid: 854fb8ff7df935246836796a925acff7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.29
+      value: 13.8
       objectReference: {fileID: 0}
     - target: {fileID: 3599859123977255695, guid: 854fb8ff7df935246836796a925acff7,
         type: 3}
@@ -2033,6 +2053,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5884972613179854370, guid: 854fb8ff7df935246836796a925acff7,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5884972613179854370, guid: 854fb8ff7df935246836796a925acff7,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private Projectile _prefabProjectile;
     [SerializeField] private Transform _projectileSpawnLocation;
 
-    private int _health = 3;
+    private int _playerHealth = 3;
     
     private Rigidbody _body = null;
     
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour {
     }
 
     void Start() {
-        Object.FindObjectOfType<GameplayUi>(true).UpdateHealth(_health);
+        Object.FindObjectOfType<GameplayUi>(true).UpdateHealth(_playerHealth);
         Object.FindObjectOfType<GameOverUi>(true).Close();
     }
 
@@ -53,11 +53,11 @@ public class Player : MonoBehaviour {
 
     public void Hit() {
 
-        _health--;
+        _playerHealth--;
 
-        Object.FindObjectOfType<GameplayUi>(true).UpdateHealth(_health);
+        Object.FindObjectOfType<GameplayUi>(true).UpdateHealth(_playerHealth);
 
-        if (_health <= 0) {
+        if (_playerHealth <= 0) {
             Object.FindObjectOfType<GameOverUi>(true).Open();
             var fx = Instantiate(_prefabExplosion);
             fx.transform.position = transform.position;
