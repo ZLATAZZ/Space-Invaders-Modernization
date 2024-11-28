@@ -32,6 +32,7 @@ public class GameplayUi : MonoBehaviour
         {
             SaveDataManager.Instance.score = _score;
         }
+        SaveDataManager.Instance.SaveData();
     }
 
     public void UpdateHealth(int h)

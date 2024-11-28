@@ -15,6 +15,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private TextMeshProUGUI score;
 
+    private void Start()
+    {
+        SetBestScore();
+    }
+
     private void Update()
     {
         ChangeMusicSliderLook();
@@ -57,7 +62,16 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1.0f;
     }
-
+    public void BackToMenu()
+    {
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(0);
+        SaveDataManager.Instance.SaveData();
+    }
+    public void CloseApp()
+    {
+        Application.Quit();
+    }
     public void SetScore()
     {
         score.text = $"Your score: {FindObjectOfType<GameplayUi>().Score}";
@@ -76,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     private void SetBestScore()
     {
-        int bestScore = 10;
-        score.text = $"Your best score: {bestScore}";
+        SaveDataManager.Instance.LoadData();
+        score.text = $"Your best score: {SaveDataManager.Instance.score}";
     }
 }

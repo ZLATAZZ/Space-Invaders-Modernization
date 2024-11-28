@@ -7,6 +7,7 @@ public class GameOverUi : MonoBehaviour {
     public void Open() {
         gameObject.SetActive(true);
         FindObjectOfType<GameManager>().SetScore();
+        FindObjectOfType<GameplayUi>().SetBestScore();
         Time.timeScale = 0;
         _audioManagerInstance.PlayGameOverSound();
         _audioManagerInstance.ActivateMenuMusic();
