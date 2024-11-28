@@ -4,7 +4,7 @@ using UnityEngine;
 using static ObjectPoolManager;
 using static Unity.Burst.Intrinsics.X86.Avx;
 
-[DefaultExecutionOrder(-1)]
+[DefaultExecutionOrder(-2)]
 public class ObjectPoolManager : MonoBehaviour
 {
     [System.Serializable]

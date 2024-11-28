@@ -7,10 +7,10 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Image settings;
-    [SerializeField] private Slider musicSlider;
-    [SerializeField] private Slider effectsSlider;
-    [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private Image _settings;
+    [SerializeField] private Slider _musicSlider;
+    [SerializeField] private Slider _effectsSlider;
+    [SerializeField] private AudioMixer _audioMixer;
     public void Play()
     {
         SceneManager.LoadScene(1);
@@ -18,22 +18,22 @@ public class GameManager : MonoBehaviour
 
     public void OpenSettings()
     {
-        settings.gameObject.SetActive(true);
+        _settings.gameObject.SetActive(true);
     }
 
     public void CloseSettings()
     {
-        settings.gameObject.SetActive(false);
+        _settings.gameObject.SetActive(false);
     }
     public void SetMusicVolume(float volume)
     {
-        volume = musicSlider.value;
-        audioMixer.SetFloat("Music", volume);
+        volume = _musicSlider.value;
+        _audioMixer.SetFloat("Music", volume);
     }
     public void SetEffectsVolume(float volume)
     {
-        volume = effectsSlider.value;
-        audioMixer.SetFloat("Effects", volume);
+        volume = _effectsSlider.value;
+        _audioMixer.SetFloat("Effects", volume);
     }
     public void Pause()
     {

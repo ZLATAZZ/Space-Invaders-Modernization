@@ -24,11 +24,13 @@ public class Enemy : MonoBehaviour {
     private float _fireTimer = 0.0f;
     
     private ObjectPoolManager _poolManagerInstance;
+    private AudioManager _audioManagerInstance;
     private void Awake() {
         _body = GetComponent<Rigidbody>();
         canFire = Random.value < 0.4f;
         _health = 2;
         _poolManagerInstance = ObjectPoolManager.Instance;
+        _audioManagerInstance = AudioManager.Instance;
     }
     private void OnEnable()
     {
@@ -60,6 +62,7 @@ public class Enemy : MonoBehaviour {
         var player = other.GetComponent<Player>();
         if (player != null)
         {
+            _audioManagerInstance.PlayExplosionSound();
             player._playerHealth = 0;
             player.Hit();
         }
@@ -71,9 +74,11 @@ public class Enemy : MonoBehaviour {
 
     public void Hit(int damage) {
         _health -= damage;
+        _audioManagerInstance.PlayBlasterSound();
         GameObject fxHit = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.HIT_VFX);
         _poolManagerInstance.ActivatePooledGameObject(fxHit, transform);
         if (_health <= 0) {
+            _audioManagerInstance.PlayExplosionSound();
             GameObject fx = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.EXPLOSION);
             _poolManagerInstance.ActivatePooledGameObject(fx, transform);
             

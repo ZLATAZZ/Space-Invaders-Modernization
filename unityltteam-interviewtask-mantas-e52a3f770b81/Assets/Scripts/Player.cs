@@ -24,10 +24,12 @@ public class Player : MonoBehaviour {
     private float _fireTimer = 0.0f;
 
     private ObjectPoolManager _poolManagerInstance;
+    private AudioManager _audioManagerInstance;
     private float playAreaMaxX = 3f;
     private void Awake() {
         _body = GetComponent<Rigidbody>();
         _poolManagerInstance = ObjectPoolManager.Instance;
+        _audioManagerInstance = AudioManager.Instance;
     }
 
     void Start() {
@@ -86,6 +88,7 @@ public class Player : MonoBehaviour {
         Object.FindObjectOfType<GameplayUi>(true).UpdateHealth(_playerHealth);
 
         if (_playerHealth <= 0) {
+            _audioManagerInstance.PlayGameOverSound();
             GameObject fx = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.EXPLOSION);
             _poolManagerInstance.ActivatePooledGameObject(fx, transform);
             gameObject.SetActive(false);
@@ -95,6 +98,7 @@ public class Player : MonoBehaviour {
     }
     private void GameOver()
     {
+
         Object.FindObjectOfType<GameOverUi>(true).Open();
         gameObject.SetActive(false);
         OnDie?.Invoke();
@@ -105,6 +109,7 @@ public class Player : MonoBehaviour {
     public void AddPowerUp(PowerUp.PowerUpType type) {
         GameObject fxPowerUp = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.POWER_UP_VFX);
         _poolManagerInstance.ActivatePooledGameObject(fxPowerUp, transform);
+        _audioManagerInstance.PlayPowerUpSound();
         switch (type)
         {
             case PowerUp.PowerUpType.FIRE_RATE: _fireInterval *= 0.9f; break;
