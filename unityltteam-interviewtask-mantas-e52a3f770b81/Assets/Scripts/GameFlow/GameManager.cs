@@ -15,13 +15,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private TextMeshProUGUI score;
 
-    private void Start()
-    {
-        
-    }
-
-    
-
     public void Play()
     {
         SceneManager.LoadScene(1);
