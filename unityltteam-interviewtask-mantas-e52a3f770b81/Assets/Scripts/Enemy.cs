@@ -32,14 +32,15 @@ public class Enemy : MonoBehaviour {
         _health = 2;
         _poolManagerInstance = ObjectPoolManager.Instance;
         _audioManagerInstance = AudioManager.Instance;
+        Debug.Log(Time.deltaTime);
+        
     }
     private void OnEnable()
     {
-        _health = 2 + Mathf.Min(Mathf.FloorToInt(Time.time / 15f), 5);
-        
+        _health = 2 + GetHealthIncrement();
+        gameObject.GetComponentInChildren<Slider>().maxValue = _health;
     }
-
-
+   
     void Update() {
 
         if (canFire) {
@@ -73,6 +74,10 @@ public class Enemy : MonoBehaviour {
         }
     }
 
+    private int GetHealthIncrement()
+    {
+        return Mathf.Min(Mathf.FloorToInt(Time.timeSinceLevelLoad / 15f), 5);
+    }
     public void Hit(int damage) {
         _health -= damage;
 

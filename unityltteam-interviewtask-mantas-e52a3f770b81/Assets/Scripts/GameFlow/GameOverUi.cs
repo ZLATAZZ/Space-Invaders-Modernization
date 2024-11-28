@@ -2,7 +2,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameOverUi : MonoBehaviour {
-    private AudioManager _audioManagerInstance = AudioManager.Instance;
+    private AudioManager _audioManagerInstance;
+
+    private void Awake()
+    {
+        _audioManagerInstance = AudioManager.Instance;
+    }
 
     public void Open() {
         gameObject.SetActive(true);
