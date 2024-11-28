@@ -314,7 +314,7 @@ Transform:
   m_GameObject: {fileID: 5494264766229922012}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.4, z: 0}
+  m_LocalPosition: {x: 0, y: 1.018, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -363,11 +363,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _prefabExplosion: {fileID: 7302861985510318563, guid: b9fe2c8d722fc9841a6db269ef3f3d04,
     type: 3}
-  _prefabPowerUp: {fileID: 3322102763667225299, guid: 195424833b2e94e4caa204a418379bf2,
+  _prefabPowerUp: {fileID: 5077047031473719101, guid: 995a1aec23d7bdb43b6295cbfdfab69a,
     type: 3}
   _prefabProjectile: {fileID: 177452054660736933, guid: 1dd0ab6fc9ba1d746999bdd9187ab64b,
     type: 3}
   _firePosition: {fileID: 8232551728422333466}
+  powerUpMeshes:
+  - {fileID: -2334526087507088427, guid: c3b44902129a03d438a396039413d204, type: 3}
+  - {fileID: 3464180673428940390, guid: 81990b1212ea60b40a40b25139f973be, type: 3}
+  - {fileID: -6756428543458009084, guid: 4fb1a0ccf8c8571438b503faefc080ed, type: 3}
+  powerUpMaterials:
+  - {fileID: 2100000, guid: c4b30ec95d6ff604b819f56a08fa03e6, type: 2}
+  - {fileID: 951029886044803264, guid: 81990b1212ea60b40a40b25139f973be, type: 3}
+  - {fileID: 951029886044803264, guid: 4fb1a0ccf8c8571438b503faefc080ed, type: 3}
   _health: 2
 --- !u!65 &3738738063419362240
 BoxCollider:

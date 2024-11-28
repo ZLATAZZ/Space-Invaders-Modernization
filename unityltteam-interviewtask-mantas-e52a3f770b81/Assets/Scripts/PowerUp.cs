@@ -8,6 +8,8 @@ public class PowerUp : MonoBehaviour {
 
     public enum PowerUpType {
         FIRE_RATE = 0,
+        HEAL = 1,
+        ADD_SPACECRAFT = 2,
     }
 
     [SerializeField] private PowerUpType _type;

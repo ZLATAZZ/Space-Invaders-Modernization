@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private GameObject _prefabExplosion;
     [SerializeField] private Projectile _prefabProjectile;
     [SerializeField] private Transform _projectileSpawnLocation;
+    [SerializeField] private GameObject _additionalPlayer;
 
     [HideInInspector] public int _playerHealth = 3;
     
@@ -35,26 +36,30 @@ public class Player : MonoBehaviour {
     }
 
     private void Update() {
-        
-        if (Input.GetMouseButtonDown(0)) _hasInput = true;
-        if (Input.GetMouseButtonUp(0)) _hasInput = false;
-        if (Input.GetMouseButton(0)) {
-            _lastInput = Input.mousePosition;
-        }
-        if (_hasInput)
+
+        if (gameObject.CompareTag("Player"))
         {
-            Vector3 screenPosition = _lastInput;
-            screenPosition.z = 0; 
+            if (Input.GetMouseButtonDown(0)) _hasInput = true;
+            if (Input.GetMouseButtonUp(0)) _hasInput = false;
+            if (Input.GetMouseButton(0))
+            {
+                _lastInput = Input.mousePosition;
+            }
+            if (_hasInput)
+            {
+                Vector3 screenPosition = _lastInput;
+                screenPosition.z = 0;
 
-            Vector3 pos = Camera.main.ScreenToWorldPoint(screenPosition);
+                Vector3 pos = Camera.main.ScreenToWorldPoint(screenPosition);
 
-            const float playAreaMinX = -3f;
-            const float playAreaMinY = 0f;
-            const float playAreaMaxX = 3f;
-            const float playAreaMaxY = 5f;
+                const float playAreaMinX = -3f;
+                const float playAreaMinY = 0f;
+                const float playAreaMaxX = 3f;
+                const float playAreaMaxY = 5f;
 
-            _body.MovePosition(new Vector3(Mathf.Clamp(pos.x,playAreaMinX, playAreaMaxX), Mathf.Clamp(pos.y, playAreaMinY, playAreaMaxY), 0.0f));
+                _body.MovePosition(new Vector3(Mathf.Clamp(pos.x, playAreaMinX, playAreaMaxX), Mathf.Clamp(pos.y, playAreaMinY, playAreaMaxY), 0.0f));
 
+            }
         }
 
         _fireTimer += Time.deltaTime;
@@ -78,23 +83,24 @@ public class Player : MonoBehaviour {
             gameObject.SetActive(false);
             _poolManagerInstance.DeactivatePooledObjects();
             Invoke("GameOver", .5f);//small delay to see the explosion
-            
         }
     }
     private void GameOver()
     {
-       
         Object.FindObjectOfType<GameOverUi>(true).Open();
-        Destroy(gameObject);
+        gameObject.SetActive(false);
         OnDie?.Invoke();
         Time.timeScale = 0;
         return;
     }
 
     public void AddPowerUp(PowerUp.PowerUpType type) {
-
-        if (type == PowerUp.PowerUpType.FIRE_RATE) {
-            _fireInterval *= 0.9f;
+        Debug.Log("Was called");
+        switch (type)
+        {
+            case PowerUp.PowerUpType.FIRE_RATE: _fireInterval *= 0.9f; break;
+            case PowerUp.PowerUpType.HEAL when _playerHealth < 3: _playerHealth+=1; break;
+            case PowerUp.PowerUpType.ADD_SPACECRAFT: _additionalPlayer.SetActive(true); break;
         }
     }
 }

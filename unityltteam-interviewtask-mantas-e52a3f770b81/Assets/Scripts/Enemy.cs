@@ -11,8 +11,10 @@ public class Enemy : MonoBehaviour {
     [SerializeField] private PowerUp _prefabPowerUp;
     [SerializeField] private Projectile _prefabProjectile;
     [SerializeField] private Transform _firePosition;
+    [SerializeField] private Mesh[] powerUpMeshes;
+    [SerializeField] private Material[] powerUpMaterials;
 
-    private float _powerUpSpawnChance = 0.1f;
+    private float _powerUpSpawnChance = 0.2f;
     [HideInInspector] public int _health = 2;
     private float _speed = 2.0f;
     private Rigidbody _body;
@@ -25,6 +27,7 @@ public class Enemy : MonoBehaviour {
     private void Awake() {
         _body = GetComponent<Rigidbody>();
         canFire = Random.value < 0.4f;
+        _health = 2;
         _poolManagerInstance = ObjectPoolManager.Instance;
     }
     private void OnEnable()
@@ -80,8 +83,11 @@ public class Enemy : MonoBehaviour {
                 _poolManagerInstance.ActivatePooledGameObject(powerup, _firePosition);
 
                 var types = Enum.GetValues(typeof(PowerUp.PowerUpType)).Cast<PowerUp.PowerUpType>().ToList();
-                powerup.GetComponent<PowerUp>().SetType(types[Random.Range(0,types.Count)]);
-                
+                int randomPowerUpIndex = Random.Range(0, types.Count);
+                powerup.GetComponent<PowerUp>().SetType(types[randomPowerUpIndex]);
+                powerup.GetComponentInChildren<MeshFilter>().mesh = powerUpMeshes[randomPowerUpIndex];
+                powerup.GetComponentInChildren<MeshRenderer>().material = powerUpMaterials[randomPowerUpIndex];
+
             }
 
             gameObject.SetActive(false);
