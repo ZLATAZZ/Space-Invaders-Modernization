@@ -24,7 +24,7 @@ public class Player : MonoBehaviour {
     private float _fireTimer = 0.0f;
 
     private ObjectPoolManager _poolManagerInstance;
-
+    private float playAreaMaxX = 3f;
     private void Awake() {
         _body = GetComponent<Rigidbody>();
         _poolManagerInstance = ObjectPoolManager.Instance;
@@ -54,7 +54,15 @@ public class Player : MonoBehaviour {
 
                 const float playAreaMinX = -3f;
                 const float playAreaMinY = 0f;
-                const float playAreaMaxX = 3f;
+                if (_additionalPlayer.activeInHierarchy)
+                {
+                    playAreaMaxX = .5f;
+                }
+                else
+                {
+                    playAreaMaxX = 3f;
+                }
+                
                 const float playAreaMaxY = 5f;
 
                 _body.MovePosition(new Vector3(Mathf.Clamp(pos.x, playAreaMinX, playAreaMaxX), Mathf.Clamp(pos.y, playAreaMinY, playAreaMaxY), 0.0f));
