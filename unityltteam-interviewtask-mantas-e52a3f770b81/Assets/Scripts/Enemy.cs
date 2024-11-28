@@ -1,3 +1,4 @@
+using PrimeTween;
 using System;
 using System.Linq;
 using UnityEngine;
@@ -74,8 +75,12 @@ public class Enemy : MonoBehaviour {
 
     public void Hit(int damage) {
         _health -= damage;
+
         _audioManagerInstance.PlayBlasterSound();
+        Tween.Scale(transform, .6f, 1, .5f);
+
         GameObject fxHit = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.HIT_VFX);
+
         _poolManagerInstance.ActivatePooledGameObject(fxHit, transform);
         if (_health <= 0) {
             _audioManagerInstance.PlayExplosionSound();
@@ -86,7 +91,7 @@ public class Enemy : MonoBehaviour {
                 GameObject powerup = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.POWER_UP);
 
                 _poolManagerInstance.ActivatePooledGameObject(powerup, _firePosition);
-
+                Tween.EulerAngles(powerup.transform, Vector3.zero, new Vector3(0, 360), 1);
                 var types = Enum.GetValues(typeof(PowerUp.PowerUpType)).Cast<PowerUp.PowerUpType>().ToList();
                 int randomPowerUpIndex = Random.Range(0, types.Count);
                 powerup.GetComponent<PowerUp>().SetType(types[randomPowerUpIndex]);

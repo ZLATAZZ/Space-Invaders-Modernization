@@ -1,3 +1,4 @@
+using PrimeTween;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -75,7 +76,7 @@ public class Player : MonoBehaviour {
         if (_fireTimer >= _fireInterval) {
             GameObject bullet = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.BULLET);
             _poolManagerInstance.ActivatePooledGameObject(bullet, _projectileSpawnLocation);
-            
+            Tween.ScaleY(transform, 1.2f, 1, .5f);
             _fireTimer -= _fireInterval;
         }
     }
