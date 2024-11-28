@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip _explosionSound;
     [SerializeField] private AudioClip _powerUpSound;
     [SerializeField] private AudioClip _gameOverSound;
+    [SerializeField] private AudioClip _hitSound;
    
     public static AudioManager Instance { get; private set; }
 
@@ -40,6 +41,11 @@ public class AudioManager : MonoBehaviour
     public void PlayGameOverSound()
     {
         _effectsSource.PlayOneShot(_gameOverSound);
+    }
+
+    public void PlayHitSound()
+    {
+        _effectsSource.PlayOneShot(_hitSound);
     }
 
     public void ActivateMainMusic()

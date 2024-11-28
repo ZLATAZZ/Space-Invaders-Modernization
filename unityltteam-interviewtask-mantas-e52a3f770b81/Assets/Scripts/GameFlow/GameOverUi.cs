@@ -6,15 +6,14 @@ public class GameOverUi : MonoBehaviour {
 
     public void Open() {
         gameObject.SetActive(true);
+        FindObjectOfType<GameManager>().SetScore();
         Time.timeScale = 0;
         _audioManagerInstance.PlayGameOverSound();
         _audioManagerInstance.ActivateMenuMusic();
     }
 
     public void Close() {
-        Time.timeScale = 1;
         gameObject.SetActive(false);
-        _audioManagerInstance.ActivateMainMusic();
     }
 
     public void OnRetryButton() {

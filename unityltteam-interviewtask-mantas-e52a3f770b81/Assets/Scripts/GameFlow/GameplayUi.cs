@@ -12,6 +12,8 @@ public class GameplayUi : MonoBehaviour
     [SerializeField] private RectTransform _health;
     private int _score = 0;
 
+    public int Score { get => _score; private set => _score=value;}
+
     private void Awake()
     {
         _labelScore.text = "0";

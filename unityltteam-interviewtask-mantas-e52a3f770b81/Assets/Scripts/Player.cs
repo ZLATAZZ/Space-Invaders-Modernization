@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 using Object = UnityEngine.Object;
 
 public class Player : MonoBehaviour {
@@ -84,7 +83,7 @@ public class Player : MonoBehaviour {
     public void Hit() {
 
         _playerHealth--;
-
+        _audioManagerInstance.PlayHitSound();
         Object.FindObjectOfType<GameplayUi>(true).UpdateHealth(_playerHealth);
 
         if (_playerHealth <= 0) {
