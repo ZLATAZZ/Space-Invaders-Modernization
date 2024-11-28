@@ -99,8 +99,13 @@ public class Player : MonoBehaviour {
         switch (type)
         {
             case PowerUp.PowerUpType.FIRE_RATE: _fireInterval *= 0.9f; break;
-            case PowerUp.PowerUpType.HEAL when _playerHealth < 3: _playerHealth+=1; break;
-            case PowerUp.PowerUpType.ADD_SPACECRAFT: _additionalPlayer.SetActive(true); break;
+            case PowerUp.PowerUpType.HEAL when _playerHealth < 3: _playerHealth+=1; Object.FindObjectOfType<GameplayUi>(true).UpdateHealth(_playerHealth); break;
+            case PowerUp.PowerUpType.ADD_SPACECRAFT: _additionalPlayer.SetActive(true); Invoke("DeactivateAdditionalSpacecraft", 10); break;
         }
+    }
+
+    private void DeactivateAdditionalSpacecraft()
+    {
+        _additionalPlayer.SetActive(false);
     }
 }
