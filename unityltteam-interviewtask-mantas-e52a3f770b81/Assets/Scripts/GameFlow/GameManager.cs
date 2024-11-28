@@ -15,6 +15,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private TextMeshProUGUI score;
 
+    private void Update()
+    {
+        ChangeMusicSliderLook();
+        ChangeEffectsSliderLook();
+    }
+
     public void Play()
     {
         SceneManager.LoadScene(1);
@@ -22,22 +28,24 @@ public class GameManager : MonoBehaviour
 
     public void OpenSettings()
     {
+        SaveDataManager.Instance.LoadData();
         _settings.gameObject.SetActive(true);
     }
 
     public void CloseSettings()
     {
+        SaveDataManager.Instance.SaveData();
         _settings.gameObject.SetActive(false);
     }
     public void SetMusicVolume(float volume)
     {
-        volume = _musicSlider.value;
-        _audioMixer.SetFloat("Music", volume);
+        SaveDataManager.Instance.musicVolume = volume;
+        ChangeMusicSliderLook();
     }
     public void SetEffectsVolume(float volume)
     {
-        volume = _effectsSlider.value;
-        _audioMixer.SetFloat("Effects", volume);
+        SaveDataManager.Instance.effectsVolume = volume;
+        ChangeEffectsSliderLook();
     }
     public void Pause()
     {
@@ -53,5 +61,22 @@ public class GameManager : MonoBehaviour
     public void SetScore()
     {
         score.text = $"Your score: {FindObjectOfType<GameplayUi>().Score}";
+    }
+
+    private void ChangeMusicSliderLook()
+    {
+        _musicSlider.value = SaveDataManager.Instance.musicVolume;
+        _audioMixer.SetFloat("Music", SaveDataManager.Instance.musicVolume);
+    }
+    private void ChangeEffectsSliderLook()
+    {
+        _effectsSlider.value = SaveDataManager.Instance.effectsVolume;
+        _audioMixer.SetFloat("Effects", SaveDataManager.Instance.effectsVolume);
+    }
+
+    private void SetBestScore()
+    {
+        int bestScore = 10;
+        score.text = $"Your best score: {bestScore}";
     }
 }

@@ -26,6 +26,14 @@ public class GameplayUi : MonoBehaviour
         _labelScore.text = _score.ToString();
     }
 
+    public void SetBestScore()
+    {
+        if(SaveDataManager.Instance.score < _score)
+        {
+            SaveDataManager.Instance.score = _score;
+        }
+    }
+
     public void UpdateHealth(int h)
     {
         for (int i = 0; i < _health.childCount; i++)
