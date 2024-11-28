@@ -103,7 +103,8 @@ public class Player : MonoBehaviour {
     }
 
     public void AddPowerUp(PowerUp.PowerUpType type) {
-        Debug.Log("Was called");
+        GameObject fxPowerUp = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.POWER_UP_VFX);
+        _poolManagerInstance.ActivatePooledGameObject(fxPowerUp, transform);
         switch (type)
         {
             case PowerUp.PowerUpType.FIRE_RATE: _fireInterval *= 0.9f; break;

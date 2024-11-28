@@ -22,7 +22,8 @@ public class ObjectPoolManager : MonoBehaviour
         ENEMY,
         POWER_UP,
         EXPLOSION,
-        HIT_VFX
+        HIT_VFX,
+        POWER_UP_VFX
     }
     public List<PoolObject> _pools;
     private GameObject _tmp;
@@ -74,6 +75,7 @@ public class ObjectPoolManager : MonoBehaviour
             case TypesOfPoolObjects.POWER_UP: return PooledObject((int)TypesOfPoolObjects.POWER_UP);
             case TypesOfPoolObjects.EXPLOSION: return PooledObject((int)TypesOfPoolObjects.EXPLOSION);
             case TypesOfPoolObjects.HIT_VFX: return PooledObject((int)TypesOfPoolObjects.HIT_VFX);
+            case TypesOfPoolObjects.POWER_UP_VFX: return PooledObject((int)TypesOfPoolObjects.POWER_UP_VFX);
             default: return null;
         }
     }

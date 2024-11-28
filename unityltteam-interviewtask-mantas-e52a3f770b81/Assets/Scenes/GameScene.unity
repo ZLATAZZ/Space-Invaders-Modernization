@@ -935,6 +935,11 @@ MonoBehaviour:
     _amountOfObjectsToPool: 10
     _typesOfPoolObjects: 5
     _pooledObjects: []
+  - _objectPrefab: {fileID: 3432433612792799746, guid: 7fdd8c603174ad3439633edaf985b54a,
+      type: 3}
+    _amountOfObjectsToPool: 3
+    _typesOfPoolObjects: 6
+    _pooledObjects: []
 --- !u!1 &1148548954
 GameObject:
   m_ObjectHideFlags: 0
