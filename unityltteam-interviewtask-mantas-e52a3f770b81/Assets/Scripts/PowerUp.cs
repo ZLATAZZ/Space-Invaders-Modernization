@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PowerUp : MonoBehaviour {
     private float _speed = 3.0f;
-
     public enum PowerUpType {
         FIRE_RATE = 0,
         HEAL = 1,
@@ -14,15 +13,12 @@ public class PowerUp : MonoBehaviour {
 
     [SerializeField] private PowerUpType _type;
 
-
     public void SetType(PowerUpType type) {
         _type = type;
     }
 
     private void Update() {
-        var p = transform.position;
-        p += Vector3.down * (_speed * Time.deltaTime);
-        transform.position = p;
+        SetPowerUpPosition();
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -37,6 +33,12 @@ public class PowerUp : MonoBehaviour {
         {
             gameObject.SetActive(false);
         }
+    }
 
+    private void SetPowerUpPosition()
+    {
+        var p = transform.position;
+        p += Vector3.down * (_speed * Time.deltaTime);
+        transform.position = p;
     }
 }

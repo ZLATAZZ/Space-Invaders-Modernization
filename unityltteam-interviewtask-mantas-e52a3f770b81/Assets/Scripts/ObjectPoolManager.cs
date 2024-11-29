@@ -27,8 +27,8 @@ public class ObjectPoolManager : MonoBehaviour
     }
     public List<PoolObject> _pools;
     private GameObject _tmp;
-    
-    public static ObjectPoolManager Instance {  get; private set; }
+
+    public static ObjectPoolManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -42,10 +42,10 @@ public class ObjectPoolManager : MonoBehaviour
 
     private void CreateObjectsToPool()
     {
-        foreach(PoolObject pool in _pools)
+        foreach (PoolObject pool in _pools)
         {
             pool._pooledObjects = new List<GameObject>();
-            for(int i = 0; i < pool._amountOfObjectsToPool; i++)
+            for (int i = 0; i < pool._amountOfObjectsToPool; i++)
             {
                 _tmp = Instantiate(pool._objectPrefab);
                 pool._pooledObjects.Add(_tmp);
@@ -101,7 +101,7 @@ public class ObjectPoolManager : MonoBehaviour
         {
             foreach (GameObject pooledObject in pool._pooledObjects)
             {
-                if(pool._typesOfPoolObjects != TypesOfPoolObjects.EXPLOSION)
+                if (pool._typesOfPoolObjects != TypesOfPoolObjects.EXPLOSION)
                 {
                     pooledObject.SetActive(false);
                 }

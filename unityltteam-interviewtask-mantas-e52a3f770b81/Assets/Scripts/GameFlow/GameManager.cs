@@ -72,11 +72,20 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
+
+    //set score for gameover
     public void SetScore()
     {
         score.text = $"Your score: {FindObjectOfType<GameplayUi>().Score}";
     }
+    //set score in main menu
+    private void SetBestScore()
+    {
+        SaveDataManager.Instance.LoadData();
+        score.text = $"Your best score: {SaveDataManager.Instance.score}";
+    }
 
+    #region methods for visual part (slidera)
     private void ChangeMusicSliderLook()
     {
         _musicSlider.value = SaveDataManager.Instance.musicVolume;
@@ -87,10 +96,6 @@ public class GameManager : MonoBehaviour
         _effectsSlider.value = SaveDataManager.Instance.effectsVolume;
         _audioMixer.SetFloat("Effects", SaveDataManager.Instance.effectsVolume);
     }
+    #endregion
 
-    private void SetBestScore()
-    {
-        SaveDataManager.Instance.LoadData();
-        score.text = $"Your best score: {SaveDataManager.Instance.score}";
-    }
 }

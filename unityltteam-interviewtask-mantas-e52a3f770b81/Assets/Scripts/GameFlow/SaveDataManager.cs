@@ -6,10 +6,9 @@ using UnityEngine;
 
 public class SaveDataManager : MonoBehaviour
 {
-    public float musicVolume;
-    public float effectsVolume;
-    public int score;
-
+    [HideInInspector] public float musicVolume;
+    [HideInInspector] public float effectsVolume;
+    [HideInInspector] public int score;
     public static SaveDataManager Instance{get; private set;}
 
     private void Awake()

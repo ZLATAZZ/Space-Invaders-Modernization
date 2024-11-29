@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameOverUi : MonoBehaviour {
+public class GameOverUi : MonoBehaviour
+{
     private AudioManager _audioManagerInstance;
 
     private void Awake()
@@ -9,7 +10,8 @@ public class GameOverUi : MonoBehaviour {
         _audioManagerInstance = AudioManager.Instance;
     }
 
-    public void Open() {
+    public void Open()
+    {
         gameObject.SetActive(true);
         FindObjectOfType<GameManager>().SetScore();
         FindObjectOfType<GameplayUi>().SetBestScore();
@@ -18,11 +20,13 @@ public class GameOverUi : MonoBehaviour {
         _audioManagerInstance.ActivateMenuMusic();
     }
 
-    public void Close() {
+    public void Close()
+    {
         gameObject.SetActive(false);
     }
 
-    public void OnRetryButton() {
+    public void OnRetryButton()
+    {
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

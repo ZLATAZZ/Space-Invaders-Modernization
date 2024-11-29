@@ -7,11 +7,10 @@ using UnityEngine.UI;
 
 public class GameplayUi : MonoBehaviour
 {
-
     [SerializeField] private TMP_Text _labelScore;
     [SerializeField] private RectTransform _health;
-    private int _score = 0;
 
+    private int _score = 0;
     public int Score { get => _score; private set => _score=value;}
 
     private void Awake()

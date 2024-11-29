@@ -2420,6 +2420,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 325664793613011480}
+    - target: {fileID: 375554771765298907, guid: c2298a2e9ca9c0c4d935193b068512fa,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnRetryButton
       objectReference: {fileID: 0}
     - target: {fileID: 3589280102653357088, guid: c2298a2e9ca9c0c4d935193b068512fa,
         type: 3}
@@ -2556,6 +2561,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2298a2e9ca9c0c4d935193b068512fa, type: 3}
+--- !u!114 &325664793613011480 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1886373038967203486, guid: c2298a2e9ca9c0c4d935193b068512fa,
+    type: 3}
+  m_PrefabInstance: {fileID: 325664793613011479}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6a8d5978eb6414ea520b5c3127dded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1400679294428331442
 PrefabInstance:
   m_ObjectHideFlags: 0

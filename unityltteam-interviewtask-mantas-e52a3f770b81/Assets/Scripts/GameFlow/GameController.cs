@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
 
     [SerializeField] private Enemy _prefabEnemy;
     [SerializeField] private Vector3 _spawnPosition;
@@ -12,38 +13,43 @@ public class GameController : MonoBehaviour {
     private Player _player;
     private ObjectPoolManager _poolManagerInstance;
 
-    void Awake() {
+    void Awake()
+    {
         Application.targetFrameRate = 60;
         _poolManagerInstance = ObjectPoolManager.Instance;
     }
 
-    void Start() {
+    void Start()
+    {
         _player = Object.FindObjectOfType<Player>(true);
         _player.OnDie += OnPlayerDie;
-
         _running = true;
     }
 
-    void Update() {
+    void Update()
+    {
         if (!_running) return;
         _enemySpawnTimer += Time.deltaTime;
-        if ( _enemySpawnTimer >= _enemySpawnInterval ) {
-            GameObject enemy = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.ENEMY);
-            Vector3 p = _spawnPosition + new Vector3(
-                Random.Range(-_spawnOffsets.x, _spawnOffsets.x),
-                Random.Range(-_spawnOffsets.y, _spawnOffsets.y),
-                0.0f);
-            Transform enemyPosition = enemy.transform;
-            enemyPosition.position = p;
-            _poolManagerInstance.ActivatePooledGameObject(enemy, enemyPosition);
-            _enemySpawnTimer -= _enemySpawnInterval;
+        if (_enemySpawnTimer >= _enemySpawnInterval)
+        {
+            SpawnEnemies();
         }
     }
 
-    void OnPlayerDie() {
+    void OnPlayerDie()
+    {
         _running = false;
-
     }
-
-
+    private void SpawnEnemies()
+    {
+        GameObject enemy = _poolManagerInstance.GetPooledGameObject(ObjectPoolManager.TypesOfPoolObjects.ENEMY);
+        Vector3 p = _spawnPosition + new Vector3(
+            Random.Range(-_spawnOffsets.x, _spawnOffsets.x),
+            Random.Range(-_spawnOffsets.y, _spawnOffsets.y),
+            0.0f);
+        Transform enemyPosition = enemy.transform;
+        enemyPosition.position = p;
+        _poolManagerInstance.ActivatePooledGameObject(enemy, enemyPosition);
+        _enemySpawnTimer -= _enemySpawnInterval;
+    }
 }
